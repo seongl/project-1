@@ -6,44 +6,27 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 public class EditItemActivity extends AppCompatActivity {
 
     EditText etUpdateText;
-    String originalVal;
-    List<String> todoItems;
-    File file;
+    TodoItem originalTodoItem;
+    ArrayList<TodoItem> todoItems;
 
+    TodoItemDatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
 
-        loadData();
+        databaseHelper = TodoItemDatabaseHelper.getInstance(this);
 
-        originalVal = getIntent().getStringExtra(CommonConstants.fieldName);
+        originalTodoItem = (TodoItem) getIntent().getSerializableExtra(CommonConstants.fieldName);
         etUpdateText = (EditText)findViewById(R.id.etUpdateText);
-        etUpdateText.setText(originalVal, TextView.BufferType.EDITABLE);
-    }
-
-    private void loadData() {
-        File filesDir = getFilesDir();
-        file = new File(filesDir, CommonConstants.fileName);
-        try {
-            todoItems = new ArrayList<>(FileUtils.readLines(file));
-        } catch( IOException e ) {
-            todoItems = new ArrayList<>();
-        }
+        etUpdateText.setText(originalTodoItem.text, TextView.BufferType.EDITABLE);
     }
 
     public void onSaveItem(View view) {
@@ -56,30 +39,14 @@ public class EditItemActivity extends AppCompatActivity {
      * Remove existing value from exisitng location and
      * add updated value to the last position
      *
-     * @param newVal
+     * @param newTodoItem
      */
-    private void updateItems(String newVal) {
+    private void updateItems(String newTodoItem) {
         // Case 1: Exit if same value is entered
-        if(newVal != null && newVal.equals(originalVal)) {
+        if(newTodoItem != null && newTodoItem.equals(originalTodoItem)) {
             return;
         }
+        databaseHelper.updateTodoItem(originalTodoItem, new TodoItem(newTodoItem));
 
-        // Case 2: If different value, remove and add updated value
-        Iterator<String> it = todoItems.iterator();
-        while( it.hasNext() ) {
-            String todoItem = it.next();
-            if(todoItem != null && originalVal != null &&
-                    todoItem.equals(originalVal)) {
-                it.remove();
-                break;
-            }
-        }
-        todoItems.add(newVal);
-
-        try {
-            FileUtils.writeLines(file, todoItems);
-        } catch( IOException e ) {
-            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
     }
 }

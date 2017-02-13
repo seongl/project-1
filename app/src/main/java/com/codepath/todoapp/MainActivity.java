@@ -7,41 +7,42 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    ArrayList<String> todoItems;
-    ArrayAdapter<String> aToDoAdapter;
+    ArrayList<TodoItem> todoItems;
     ListView lvItems;
     EditText etEditText;
+
+    TodoItemsAdapter aToDoAdapter;
+    TodoItemDatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        databaseHelper = TodoItemDatabaseHelper.getInstance(this);
+
         populateArrayItems();
 
         lvItems = (ListView) findViewById(R.id.lvItems);
         lvItems.setAdapter(aToDoAdapter);
+
         etEditText = (EditText) findViewById(R.id.etEditText);
 
         // Long click deletes an item
         lvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                todoItems.remove(position);
+                TodoItem todoItem = todoItems.get(position);
                 aToDoAdapter.notifyDataSetChanged();
-                writeItems();
+                deleteItem(todoItem);
+                todoItems.remove(position);
                 return true;
             }
         });
@@ -72,38 +73,31 @@ public class MainActivity extends AppCompatActivity {
 
     public void populateArrayItems() {
         readItems();
-        aToDoAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, todoItems);
+        aToDoAdapter = new TodoItemsAdapter(this, todoItems);
     }
 
     private void readItems() {
-        File filesDir = getFilesDir();
-        File file = new File(filesDir, CommonConstants.fileName);
-        try {
-            todoItems = new ArrayList<>(FileUtils.readLines(file));
-        } catch( IOException e ) {
-            todoItems = new ArrayList<>();
-        }
+        todoItems = (ArrayList<TodoItem>)databaseHelper.getAllTodoItems();
     }
 
-    private void writeItems() {
-        File filesDir = getFilesDir();
-        File file = new File(filesDir, CommonConstants.fileName);
-        try {
-            FileUtils.writeLines(file, todoItems);
-        } catch( IOException e ) {
+    private void writeItem(TodoItem newTodoItem) {
+        databaseHelper.addTodoItem(newTodoItem);
+    }
 
-        }
+    private void deleteItem(TodoItem todoItem) {
+        databaseHelper.deleteTodoItem(todoItem);
     }
 
     public void gotoEditItemActivity(Object listItem) {
         Intent showOtherActivityIntent = new Intent(this, EditItemActivity.class);
-        showOtherActivityIntent.putExtra(CommonConstants.fieldName, (String)listItem);
+        showOtherActivityIntent.putExtra(CommonConstants.fieldName, (Serializable) listItem);
         startActivity(showOtherActivityIntent);
     }
 
     public void onAddItem(View view) {
-        aToDoAdapter.add(etEditText.getText().toString());
+        TodoItem newTodoItem = new TodoItem(etEditText.getText().toString());
+        aToDoAdapter.add(newTodoItem);
         etEditText.setText("");
-        writeItems();
+        writeItem(newTodoItem);
     }
 }

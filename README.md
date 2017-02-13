@@ -16,8 +16,8 @@ The following **required** functionality is completed:
 
 The following **optional** features are implemented:
 
-* [ ] Persist the todo items [into SQLite](http://guides.codepath.com/android/Persisting-Data-to-the-Device#sqlite) instead of a text file
-* [ ] Improve style of the todo items in the list [using a custom adapter](http://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView)
+* [X] Persist the todo items [into SQLite](http://guides.codepath.com/android/Persisting-Data-to-the-Device#sqlite) instead of a text file
+* [X] Improve style of the todo items in the list [using a custom adapter](http://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView)
 * [ ] Add support for completion due dates for todo items (and display within listview item)
 * [ ] Use a [DialogFragment](http://guides.codepath.com/android/Using-DialogFragment) instead of new Activity for editing items
 * [ ] Add support for selecting the priority of each todo item (and display in listview item)
@@ -25,7 +25,19 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-* [ ] List anything else that you can get done to improve the app functionality!
+* [ ] Show history page for past dates
+* [ ] Show graph of done and not done
+* [X] Add status and add done todo items
+* [ ] Add sorting function by due date / by priority
+* [ ] Add notification 1 day, 15 min, 5 min
+* [ ] Add functionality of copy/duplicate original task for easier modification
+* [ ] Add photo
+* [ ] Add google map driving instruction
+* [ ] if it is meet people If it is attend a meeting, kick off the meeting automatically if it is time
+* [ ] Add Recurrence
+* [ ] Watch video -> open up the app
+* [ ] Recommendation service e.g. If you completed 20 sit-ups last time, suggest 30 sit-ups and suggest recommendation video for setup
+
 
 ## Video Walkthrough 
 
