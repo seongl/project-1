@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_edit_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.codepath.todoapp.ViewDetailActivity">
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_view_detail"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:shrinkColumns="1"
+        android:stretchColumns="1"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin">
+
+        <TableRow android:layout_height="wrap_content" android:minHeight="60px"
+            android:background="@color/colorRow"
+            android:layout_width="fill_parent">
+            <TextView
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="@string/name" />
+            <TextView
+                android:textSize="20sp"
+                android:layout_marginLeft="39dp"
+                android:typeface="sans"
+                android:layout_height="match_parent"
+                android:id="@+id/nameDetailTextView" />
+        </TableRow>
+
+        <TableRow android:layout_height="wrap_content" android:minHeight="60px"
+            android:layout_width="fill_parent">
+            <TextView
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="@string/dueDate" />
+            <TextView
+                android:textSize="20sp"
+                android:layout_marginLeft="39dp"
+                android:typeface="sans"
+                android:layout_height="match_parent"
+                android:text="BB"
+                android:id="@+id/dueDateDetailTextView" />
+        </TableRow>
+
+        <TableRow android:layout_height="wrap_content" android:minHeight="60px"
+            android:background="@color/colorRow"
+            android:layout_width="fill_parent">
+            <TextView
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="@string/notes" />
+            <TextView
+                android:textSize="20sp"
+                android:layout_marginLeft="39dp"
+                android:typeface="sans"
+                android:layout_height="match_parent"
+                android:text="CC"
+                android:id="@+id/notesDetailTextView" />
+        </TableRow>
+
+        <TableRow android:layout_height="wrap_content" android:minHeight="60px"
+            android:layout_width="fill_parent">
+            <TextView
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="@string/priority" />
+            <TextView
+                android:textSize="20sp"
+                android:layout_marginLeft="39dp"
+                android:typeface="sans"
+                android:layout_height="match_parent"
+                android:text="DD"
+                android:id="@+id/priorityDetailTextView" />
+        </TableRow>
+
+        <TableRow android:layout_height="wrap_content" android:minHeight="60px"
+            android:background="@color/colorRow"
+            android:layout_width="fill_parent">
+            <TextView
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:text="@string/status" />
+            <TextView
+                android:textSize="20sp"
+                android:layout_marginLeft="39dp"
+                android:typeface="sans"
+                android:layout_height="match_parent"
+                android:text="EE"
+                android:id="@+id/statusDetailTextView" />
+        </TableRow>
+    </TableLayout>
+    <Button
+        android:layout_marginBottom="36dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:text="Change"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:id="@+id/btnChange"
+        android:onClick="onChange" />
+
+</RelativeLayout>

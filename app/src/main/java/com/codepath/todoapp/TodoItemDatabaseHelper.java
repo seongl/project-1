@@ -19,7 +19,7 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper {
 
     // Database Info
     private static final String DATABASE_NAME = "todoItemsDatabase";
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 10;
 
     // Table Names
     private static final String TABLE_TODOITEMS = "todoItems";
@@ -57,7 +57,9 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper {
                 "(" +
                 KEY_TODOITEM_ID + " INTEGER PRIMARY KEY," + // Define a primary key
                 KEY_TODOITEM_TEXT + " TEXT," +
-                KEY_TODOITEM_PRIORITY + " TEXT" +
+                KEY_TODOITEM_PRIORITY + " TEXT," +
+                KEY_TODOITEM_STATUS + " TEXT," +
+                KEY_TODOITEM_NOTES + " TEXT" +
                 ")";
 
         db.execSQL(CREATE_POSTS_TABLE);
@@ -104,6 +106,8 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper {
             ContentValues values = new ContentValues();
             values.put(KEY_TODOITEM_TEXT, todoItem.text);
             values.put(KEY_TODOITEM_PRIORITY, todoItem.priority);
+            values.put(KEY_TODOITEM_STATUS, todoItem.status);
+            values.put(KEY_TODOITEM_NOTES, todoItem.notes);
 
             // Notice how we haven't specified the primary key. SQLite auto increments the primary key column.
             db.insertOrThrow(TABLE_TODOITEMS, null, values);
@@ -188,6 +192,8 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper {
                     TodoItem newTodoItem = new TodoItem();
                     newTodoItem.text = cursor.getString(cursor.getColumnIndex(KEY_TODOITEM_TEXT));
                     newTodoItem.priority = cursor.getString(cursor.getColumnIndex(KEY_TODOITEM_PRIORITY));
+                    newTodoItem.status = cursor.getString(cursor.getColumnIndex(KEY_TODOITEM_STATUS));
+                    newTodoItem.notes = cursor.getString(cursor.getColumnIndex(KEY_TODOITEM_NOTES));
                     todoItems.add(newTodoItem);
                 } while(cursor.moveToNext());
             }

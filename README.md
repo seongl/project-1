@@ -25,17 +25,21 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
+* [ ] Use more intuitive image for buttons
+* [ ] Organize the buttons into action bar
+* [ ] Add title page
+* [X] Add status and add done todo items
+* [ ] Add sorting function by due date / by priority using framework
 * [ ] Show history page for past dates
 * [ ] Show graph of done and not done
-* [X] Add status and add done todo items
-* [ ] Add sorting function by due date / by priority
-* [ ] Add notification 1 day, 15 min, 5 min
+* [ ] Add notification 1 day, 15 min, 5 min and notify at the time
 * [ ] Add functionality of copy/duplicate original task for easier modification
-* [ ] Add photo
-* [ ] Add google map driving instruction
-* [ ] if it is meet people If it is attend a meeting, kick off the meeting automatically if it is time
-* [ ] Add Recurrence
-* [ ] Watch video -> open up the app
+* [ ] Add photo in description. Instead of writing long description of what to do, take a picture that will remind you what to do.
+* [ ] Integrate with Google voice to create a todo item
+* [ ] Add location into description and call google map for map and driving instruction
+* [ ] Automatically kick off google hangout, if it is a meeting schedueld 
+* [ ] Add Recurrence e.g. weekly, monthly repeated todos
+* [ ] Automatically open up youtube app if todo item is watch a video 
 * [ ] Recommendation service e.g. If you completed 20 sit-ups last time, suggest 30 sit-ups and suggest recommendation video for setup
 
 

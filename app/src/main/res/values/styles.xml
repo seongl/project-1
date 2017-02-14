@@ -1,11 +1,18 @@
 <resources>
+    <style name="MaterialTheme" parent="ParentMaterialTheme">
+
+    </style>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="ParentMaterialTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="colorControlHighlight">#1ef1ab</item>
+        <item name="colorButtonNormal">#f955f3</item>
+        <item name="colorControlActivated">#0cf427</item>
     </style>
 
 </resources>

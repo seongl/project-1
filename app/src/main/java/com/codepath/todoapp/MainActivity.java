@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
 
 import java.io.Serializable;
@@ -16,7 +15,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     ArrayList<TodoItem> todoItems;
     ListView lvItems;
-    EditText etEditText;
 
     TodoItemsAdapter aToDoAdapter;
     TodoItemDatabaseHelper databaseHelper;
@@ -33,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         lvItems = (ListView) findViewById(R.id.lvItems);
         lvItems.setAdapter(aToDoAdapter);
 
-        etEditText = (EditText) findViewById(R.id.etEditText);
 
         // Long click deletes an item
         lvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -51,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
         lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                gotoEditItemActivity(lvItems.getItemAtPosition(position));
+//                gotoEditItemActivity(lvItems.getItemAtPosition(position));
+                gotoDetailItemActivity(lvItems.getItemAtPosition(position));
             }
         });
     }
@@ -80,10 +78,6 @@ public class MainActivity extends AppCompatActivity {
         todoItems = (ArrayList<TodoItem>)databaseHelper.getAllTodoItems();
     }
 
-    private void writeItem(TodoItem newTodoItem) {
-        databaseHelper.addTodoItem(newTodoItem);
-    }
-
     private void deleteItem(TodoItem todoItem) {
         databaseHelper.deleteTodoItem(todoItem);
     }
@@ -94,10 +88,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(showOtherActivityIntent);
     }
 
-    public void onAddItem(View view) {
-        TodoItem newTodoItem = new TodoItem(etEditText.getText().toString());
-        aToDoAdapter.add(newTodoItem);
-        etEditText.setText("");
-        writeItem(newTodoItem);
+    public void gotoDetailItemActivity(Object listItem) {
+        Intent showOtherActivityIntent = new Intent(this, ViewDetailActivity.class);
+        showOtherActivityIntent.putExtra(CommonConstants.fieldName, (Serializable) listItem);
+        startActivity(showOtherActivityIntent);
     }
+
+    public void onAddNewItem(View view) {
+        Intent showOtherActivityIntent = new Intent(this, AddActivity.class);
+        startActivity(showOtherActivityIntent);
+    }
+
 }
