@@ -1,6 +1,7 @@
 package com.codepath.todoapp;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created by seonglee on 2/9/17.
@@ -8,7 +9,7 @@ import java.io.Serializable;
 
 public class TodoItem implements Serializable {
     public String text; //name
-    public String date;
+    public Date date;
     public String notes;
     public String priority = "Low";
     public String status;
@@ -28,12 +29,13 @@ public class TodoItem implements Serializable {
         this.priority = priority;
     }
 
-    public TodoItem(String text, String priority, String status, String notes) {
+    public TodoItem(String text, String priority, String status, String notes, Date dueDate) {
         super();
         this.text = text;
         this.priority = priority;
         this.status = status;
         this.notes = notes;
+        this.date = dueDate;
     }
 
     @Override

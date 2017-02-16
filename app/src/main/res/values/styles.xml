@@ -4,15 +4,27 @@
     </style>
 
     <!-- Base application theme. -->
-    <style name="ParentMaterialTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="ParentMaterialTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowActionBarOverlay">true</item>
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
         <item name="colorControlHighlight">#1ef1ab</item>
-        <item name="colorButtonNormal">#f955f3</item>
+        <item name="colorButtonNormal">#00C853</item>
         <item name="colorControlActivated">#0cf427</item>
+    </style>
+
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+    </style>
+
+    <style name="PopupTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:textColorPrimary">#9E9E9E</item>
+        <item name="android:background">#fffcfff6</item>
     </style>
 
 </resources>

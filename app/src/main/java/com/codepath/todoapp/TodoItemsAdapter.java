@@ -24,6 +24,10 @@ public class TodoItemsAdapter extends ArrayAdapter<TodoItem> {
         this.todoItems = todoItems;
     }
 
+    public ArrayList<TodoItem> getData() {
+        return todoItems;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context

@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -11,8 +14,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class ViewDetailActivity extends AppCompatActivity {
+
+    Toolbar toolbar;
 
     TextView nameDetailTextView;
     TextView dueDateDetailTextView;
@@ -23,9 +30,42 @@ public class ViewDetailActivity extends AppCompatActivity {
     TodoItem originalTodoItem;
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detail, menu);
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_detail);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setTitle("Welcome !");
+        toolbar.setSubtitle("Folks!");
+
+        toolbar.inflateMenu(R.menu.menu_main);
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                String msg = "";
+
+                switch(item.getItemId()) {
+                    case R.id.edit:
+                        msg = "Edit";
+                        onAddNewItem();
+                        break;
+                    case R.id.view_list:
+                        msg = "Clear";
+                        gotoMainActivity(null);
+                        break;
+                }
+                return false;
+            }
+        });
 
         originalTodoItem = (TodoItem) getIntent().getSerializableExtra(CommonConstants.fieldName);
 
@@ -35,8 +75,9 @@ public class ViewDetailActivity extends AppCompatActivity {
         priorityDetailTextView = (TextView) findViewById(R.id.priorityDetailTextView);
         statusDetailTextView = (TextView) findViewById(R.id.statusDetailTextView);
 
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         nameDetailTextView.setText(originalTodoItem.text);
-        dueDateDetailTextView.setText(originalTodoItem.date);
+        dueDateDetailTextView.setText(df.format(originalTodoItem.date));
         notesDetailTextView.setText(originalTodoItem.notes);
         priorityDetailTextView.setText(originalTodoItem.priority);
         statusDetailTextView.setText(originalTodoItem.status);
@@ -51,6 +92,20 @@ public class ViewDetailActivity extends AppCompatActivity {
     public void onChange(View view) {
         Intent showOtherActivityIntent = new Intent(this, AddActivity.class);
         showOtherActivityIntent.putExtra(CommonConstants.fieldName, originalTodoItem);
+        startActivity(showOtherActivityIntent);
+    }
+
+    public void onAddNewItem() {
+        Intent showOtherActivityIntent = new Intent(this, AddActivity.class);
+        showOtherActivityIntent.putExtra(CommonConstants.fieldName, (Serializable) originalTodoItem);
+        startActivity(showOtherActivityIntent);
+    }
+
+    public void gotoMainActivity(Object listItem) {
+        Intent showOtherActivityIntent = new Intent(this, MainActivity.class);
+        if(listItem != null) {
+            showOtherActivityIntent.putExtra(CommonConstants.fieldName, (Serializable) listItem);
+        }
         startActivity(showOtherActivityIntent);
     }
 

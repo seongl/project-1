@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
         android:id="@+id/rowTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -12,6 +13,7 @@
     </TextView>
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:id="@+id/priorityTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

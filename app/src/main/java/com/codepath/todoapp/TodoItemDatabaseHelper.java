@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -19,7 +20,7 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper {
 
     // Database Info
     private static final String DATABASE_NAME = "todoItemsDatabase";
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 14;
 
     // Table Names
     private static final String TABLE_TODOITEMS = "todoItems";
@@ -30,7 +31,7 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_TODOITEM_PRIORITY = "priority";
     private static final String KEY_TODOITEM_NOTES = "notes";
     private static final String KEY_TODOITEM_STATUS = "status";
-    private static final String KEY_TODOITEM_DATE = "date";
+    private static final String KEY_TODOITEM_DATE = "duedate";
 
     private static TodoItemDatabaseHelper sInstance;
 
@@ -59,7 +60,8 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper {
                 KEY_TODOITEM_TEXT + " TEXT," +
                 KEY_TODOITEM_PRIORITY + " TEXT," +
                 KEY_TODOITEM_STATUS + " TEXT," +
-                KEY_TODOITEM_NOTES + " TEXT" +
+                KEY_TODOITEM_NOTES + " TEXT," +
+                KEY_TODOITEM_DATE + " DATE" +
                 ")";
 
         db.execSQL(CREATE_POSTS_TABLE);
@@ -108,6 +110,7 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper {
             values.put(KEY_TODOITEM_PRIORITY, todoItem.priority);
             values.put(KEY_TODOITEM_STATUS, todoItem.status);
             values.put(KEY_TODOITEM_NOTES, todoItem.notes);
+            values.put(KEY_TODOITEM_DATE, todoItem.date.getTime());
 
             // Notice how we haven't specified the primary key. SQLite auto increments the primary key column.
             db.insertOrThrow(TABLE_TODOITEMS, null, values);
@@ -194,6 +197,7 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper {
                     newTodoItem.priority = cursor.getString(cursor.getColumnIndex(KEY_TODOITEM_PRIORITY));
                     newTodoItem.status = cursor.getString(cursor.getColumnIndex(KEY_TODOITEM_STATUS));
                     newTodoItem.notes = cursor.getString(cursor.getColumnIndex(KEY_TODOITEM_NOTES));
+                    newTodoItem.date = new Date(cursor.getLong(cursor.getColumnIndex(KEY_TODOITEM_DATE)));
                     todoItems.add(newTodoItem);
                 } while(cursor.moveToNext());
             }
@@ -216,7 +220,10 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_TODOITEM_TEXT, newTodoItem.text);
-        //values.put(KEY_TODOITEM_PRIORITY, newTodoItem.priority);
+        values.put(KEY_TODOITEM_PRIORITY, newTodoItem.priority);
+        values.put(KEY_TODOITEM_NOTES, newTodoItem.notes);
+        values.put(KEY_TODOITEM_STATUS, newTodoItem.status);
+        values.put(KEY_TODOITEM_DATE, newTodoItem.date.getTime());
         // No need to
 
         // Updating profile picture url for user with that userName
@@ -241,6 +248,18 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void deleteTodoItem(TodoItem todoItem) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.beginTransaction();
+        try {
+            db.delete(TABLE_TODOITEMS, KEY_TODOITEM_TEXT + " = ?",
+                    new String[] { String.valueOf(todoItem.text) });
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            Log.d(TAG, "Error while trying to delete all posts and users");
+        } finally {
+            db.endTransaction();
+        }
+
 //        public int delete(String table, String whereClause, String[] whereArgs) {
 //            throw new RuntimeException("Stub!");
 //        }

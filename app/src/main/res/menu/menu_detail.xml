@@ -1,0 +1,41 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.codepath.todoapp.AddActivity">
+
+    <item
+        android:id="@+id/edit"
+        android:icon="@drawable/ic_edit"
+        android:orderInCategory="100"
+        android:title="Edit"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/view_list"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_view_list"
+        android:title="List"
+        app:showAsAction="always" />
+
+
+    <!--<item-->
+        <!--android:id="@+id/settings"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="Settings"-->
+        <!--app:showAsAction="never" />-->
+
+    <!--<item-->
+        <!--android:id="@+id/Exit"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="Exit"-->
+        <!--app:showAsAction="never" />-->
+
+
+
+
+    <!--<item-->
+        <!--android:id="@+id/action_settings"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/action_settings"-->
+        <!--app:showAsAction="never" />-->
+</menu>

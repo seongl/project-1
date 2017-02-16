@@ -2,9 +2,82 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.codepath.todoapp.MainActivity">
+
+    <!--android:actionLayout="@layout/my_action_layout"-->
+    <!--android:actionViewClass="android.widget.SearchView"-->
+    <!--android:showAsAction="ifRoom|withText|collapseActionView"-->
+    <!--android:onClick="onOption1Clicked"-->
+    <!--android:showAsAction="always"-->
+    <!--In MainActivity-->
+    <!--MenuItem _menuItemMyAction-->
+
+    <!--public boolean onCreateOptinsMenu(Menu menu)-->
+    <!--_menuItemMyAciton = menu.findItem(R.id.menuItemMyAction);-->
+    <!--return true;-->
+
+
+    <!--publci void onBittonClick(View view) {-->
+    <!--if(_menuItemMyAction.isActionViewEXpanded())-->
+    <!--_menuItemMyAciton.collapseActionview();-->
+    <!--else-->
+    <!--_menuItemMyAction.expandActionview();-->
+    <!--<item-->
+        <!--android:id="@+id/search"-->
+        <!--android:icon="@drawable/ic_search"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="Search"-->
+        <!--app:showAsAction="always" />-->
+
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/note_add"
+        android:icon="@drawable/ic_note_add"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:title="Add"
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/detail"
+        android:icon="@drawable/ic_detail"
+        android:orderInCategory="100"
+        android:title="Detail"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/discard"
+        android:icon="@drawable/ic_discard"
+        android:orderInCategory="100"
+        android:title="Delete"
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/delete_sweep"
+        android:icon="@drawable/ic_delete_sweep"
+        android:orderInCategory="100"
+        android:title="DeleteAll"
+        app:showAsAction="collapseActionView" />
+
+
+
+    <!--<item-->
+        <!--android:id="@+id/settings"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="Settings"-->
+        <!--app:showAsAction="never" />-->
+
+    <!--<item-->
+        <!--android:id="@+id/Exit"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="Exit"-->
+        <!--app:showAsAction="never" />-->
+
+
+
+
+    <!--<item-->
+        <!--android:id="@+id/action_settings"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/action_settings"-->
+        <!--app:showAsAction="never" />-->
 </menu>

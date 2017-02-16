@@ -47,6 +47,5 @@ public class EditItemActivity extends AppCompatActivity {
             return;
         }
         databaseHelper.updateTodoItem(originalTodoItem, new TodoItem(newTodoItem));
-
     }
 }

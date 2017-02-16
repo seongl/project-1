@@ -10,29 +10,39 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.codepath.todoapp.EditItemActivity">
 
-    <TextView
-        android:text="Edit Item Below:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="39dp"
-        android:layout_marginStart="39dp"
-        android:layout_marginTop="20dp"
-        android:id="@+id/edItemBelow" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Add Value"
-        android:ems="10"
-        android:layout_marginTop="19dp"
-        android:id="@+id/etUpdateText"
-        android:layout_below="@+id/edItemBelow"
-        android:layout_alignLeft="@+id/edItemBelow"
-        android:layout_alignStart="@+id/edItemBelow" />
+
+        <TextView
+            android:text="Edit Item Below:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="39dp"
+            android:layout_marginStart="39dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/edItemBelow" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Add Value"
+            android:ems="10"
+            android:layout_marginTop="19dp"
+            android:id="@+id/etUpdateText"
+            android:layout_below="@+id/edItemBelow"
+            android:layout_alignLeft="@+id/edItemBelow"
+            android:layout_alignStart="@+id/edItemBelow" />
+    </LinearLayout>
 
     <Button
         android:text="Save"
@@ -41,7 +51,7 @@
         android:layout_marginTop="30dp"
         android:id="@+id/btnSave"
         android:onClick="onSaveItem"
-        android:layout_below="@+id/etUpdateText"
-        android:layout_alignLeft="@+id/etUpdateText"
-        android:layout_alignStart="@+id/etUpdateText" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
