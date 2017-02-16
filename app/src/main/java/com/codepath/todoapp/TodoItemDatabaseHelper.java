@@ -36,9 +36,6 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper {
     private static TodoItemDatabaseHelper sInstance;
 
     public static synchronized TodoItemDatabaseHelper getInstance(Context context) {
-        // Use the application context, which will ensure that you
-        // don't accidentally leak an Activity's context.
-        // See this article for more information: http://bit.ly/6LRzfx
         if (sInstance == null) {
             sInstance = new TodoItemDatabaseHelper(context.getApplicationContext());
         }
@@ -51,7 +48,7 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper {
 
     // These is where we need to write create table statements.
     // This is called when database is created.
-    //@Override
+    @Override
     public void onCreate(SQLiteDatabase db) {
         // SQL for creating the tables
         String CREATE_POSTS_TABLE = "CREATE TABLE " + TABLE_TODOITEMS +
@@ -74,7 +71,6 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper {
         super.onConfigure(db);
         db.setForeignKeyConstraintsEnabled(true);
     }
-
 
     // This method is called when database is upgraded like
     // modifying the table structure,
@@ -102,9 +98,6 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper {
         // consistency of the database.
         db.beginTransaction();
         try {
-            // The user might already exist in the database (i.e. the same user created multiple posts).
-            //long userId = addOrUpdateUser(post.user);
-
             ContentValues values = new ContentValues();
             values.put(KEY_TODOITEM_TEXT, todoItem.text);
             values.put(KEY_TODOITEM_PRIORITY, todoItem.priority);
@@ -122,71 +115,16 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    // Insert or update a user in the database
-    // Since SQLite doesn't support "upsert" we need to fall back on an attempt to UPDATE (in case the
-    // user already exists) optionally followed by an INSERT (in case the user does not already exist).
-    // Unfortunately, there is a bug with the insertOnConflict method
-    // (https://code.google.com/p/android/issues/detail?id=13045) so we need to fall back to the more
-    // verbose option of querying for the user's primary key if we did an update.
-//    public long addOrUpdateUser(User user) {
-//        // The database connection is cached so it's not expensive to call getWriteableDatabase() multiple times.
-//        SQLiteDatabase db = getWritableDatabase();
-//        long userId = -1;
-//
-//        db.beginTransaction();
-//        try {
-//            ContentValues values = new ContentValues();
-//            values.put(KEY_USER_NAME, user.userName);
-//            values.put(KEY_USER_PROFILE_PICTURE_URL, user.profilePictureUrl);
-//
-//            // First try to update the user in case the user already exists in the database
-//            // This assumes userNames are unique
-//            int rows = db.update(TABLE_USERS, values, KEY_USER_NAME + "= ?", new String[]{user.userName});
-//
-//            // Check if update succeeded
-//            if (rows == 1) {
-//                // Get the primary key of the user we just updated
-//                String usersSelectQuery = String.format("SELECT %s FROM %s WHERE %s = ?",
-//                        KEY_USER_ID, TABLE_USERS, KEY_USER_NAME);
-//                Cursor cursor = db.rawQuery(usersSelectQuery, new String[]{String.valueOf(user.userName)});
-//                try {
-//                    if (cursor.moveToFirst()) {
-//                        userId = cursor.getInt(0);
-//                        db.setTransactionSuccessful();
-//                    }
-//                } finally {
-//                    if (cursor != null && !cursor.isClosed()) {
-//                        cursor.close();
-//                    }
-//                }
-//            } else {
-//                // user with this userName did not already exist, so insert new user
-//                userId = db.insertOrThrow(TABLE_USERS, null, values);
-//                db.setTransactionSuccessful();
-//            }
-//        } catch (Exception e) {
-//            Log.d(TAG, "Error while trying to add or update user");
-//        } finally {
-//            db.endTransaction();
-//        }
-//        return userId;
-//    }
-
     /********************
      * Querying Records
      ********************/
     public List<TodoItem> getAllTodoItems() {
         List<TodoItem> todoItems = new ArrayList<>();
 
-        // SELECT * FROM POSTS
-        // LEFT OUTER JOIN USERS
-        // ON POSTS.KEY_POST_USER_ID_FK = USERS.KEY_USER_ID
         String TODOITEMS_SELECT_QUERY =
                 String.format("SELECT * FROM %s ",
                         TABLE_TODOITEMS);
 
-        // "getReadableDatabase()" and "getWriteableDatabase()" return the same object (except under low
-        // disk space scenarios)
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(TODOITEMS_SELECT_QUERY, null);
         try {
@@ -214,7 +152,6 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper {
     /********************
      * Updating Records
      ********************/
-    // Update the user's profile picture url
     public int updateTodoItem(TodoItem oldTodoItem, TodoItem newTodoItem) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -224,9 +161,7 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper {
         values.put(KEY_TODOITEM_NOTES, newTodoItem.notes);
         values.put(KEY_TODOITEM_STATUS, newTodoItem.status);
         values.put(KEY_TODOITEM_DATE, newTodoItem.date.getTime());
-        // No need to
 
-        // Updating profile picture url for user with that userName
         return db.update(TABLE_TODOITEMS, values, KEY_TODOITEM_TEXT + " = ?",
                 new String[] { String.valueOf(oldTodoItem.text) });
     }
@@ -241,7 +176,7 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper {
             db.delete(TABLE_TODOITEMS, null, null);
             db.setTransactionSuccessful();
         } catch (Exception e) {
-            Log.d(TAG, "Error while trying to delete all posts and users");
+            Log.d(TAG, "Error while trying to delete all todo items");
         } finally {
             db.endTransaction();
         }
@@ -255,15 +190,10 @@ public class TodoItemDatabaseHelper extends SQLiteOpenHelper {
                     new String[] { String.valueOf(todoItem.text) });
             db.setTransactionSuccessful();
         } catch (Exception e) {
-            Log.d(TAG, "Error while trying to delete all posts and users");
+            Log.d(TAG, "Error while trying to delete todo item " + todoItem.toString());
         } finally {
             db.endTransaction();
         }
-
-//        public int delete(String table, String whereClause, String[] whereArgs) {
-//            throw new RuntimeException("Stub!");
-//        }
-
     }
 
 }

@@ -11,22 +11,11 @@ public class TodoItem implements Serializable {
     public String text; //name
     public Date date;
     public String notes;
-    public String priority = "Low";
+    public String priority = CommonConstants.DEFAULT_PRIORITY;
     public String status;
 
     public TodoItem() {
         super();
-    }
-
-    public TodoItem(String text){
-        super();
-        this.text = text;
-    }
-
-    public TodoItem(String text, String priority) {
-        super();
-        this.text = text;
-        this.priority = priority;
     }
 
     public TodoItem(String text, String priority, String status, String notes, Date dueDate) {

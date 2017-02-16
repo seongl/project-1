@@ -18,40 +18,25 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
+    ListView lvItems;
 
     ArrayList<TodoItem> todoItems;
-    ListView lvItems;
+    TodoItem selectedFromList;
+
+    Toolbar toolbar;
 
     TodoItemsAdapter aToDoAdapter;
     TodoItemDatabaseHelper databaseHelper;
-
-    TodoItem selectedFromList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//        toolbar.setNavigationOnClickListener(
-//                new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        onAddNewItem(v);
-//                    }
-//                }
-//        );
-
-        getSupportActionBar().setTitle("Welcome !");
-        toolbar.setSubtitle("Folks!");
-
-
-
         toolbar.inflateMenu(R.menu.menu_main);
-
-
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -59,44 +44,42 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.discard:
                         if(selectedFromList != null) {
                             deleteItem(selectedFromList);
-//                            lvItems.invalidateViews();
 
                             todoItems.remove(selectedFromList);
-                            // update data in our adapter
+                            // Update dat ain our adaptor and re-render the view
                             aToDoAdapter.getData().remove(selectedFromList);
-                            // fire the event
                             aToDoAdapter.notifyDataSetChanged();
                             selectedFromList = null;
 
-                            turnGrey(toolbar.getMenu());
+                            invalidateIcons(toolbar.getMenu());
                         }
                         break;
+
                     case R.id.detail:
                         if(selectedFromList != null) {
                             gotoDetailItemActivity(selectedFromList);
                         }
                         break;
+
                     case R.id.note_add:
                         onAddNewItem();
                         break;
+
                     case R.id.delete_sweep:
                         databaseHelper.deleteAllTodoItems();
+
+                        // Update dat ain our adaptor and re-render the view
                         aToDoAdapter.getData().clear();
                         aToDoAdapter.notifyDataSetChanged();
-                        turnGrey(toolbar.getMenu());
+
+                        invalidateIcons(toolbar.getMenu());
                         break;
                 }
                 return true;
             }
         });
 
-
-
-
-
-//        toolbar.setLogo(R.drawable.good_day);
-//        toolbar.setNavigationIcon(R.drawable.navigation_back);
-
+        // DB
         databaseHelper = TodoItemDatabaseHelper.getInstance(this);
 
         populateArrayItems();
@@ -104,27 +87,7 @@ public class MainActivity extends AppCompatActivity {
         lvItems = (ListView) findViewById(R.id.lvItems);
         lvItems.setAdapter(aToDoAdapter);
 
-
-//        // Long click deletes an item
-//        lvItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                TodoItem todoItem = todoItems.get(position);
-//                aToDoAdapter.notifyDataSetChanged();
-//                deleteItem(todoItem);
-//                todoItems.remove(position);
-//                return true;
-//            }
-//        });
-//
-//        // Short click goes to edit activity
-//        lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-////                gotoEditItemActivity(lvItems.getItemAtPosition(position));
-//                gotoDetailItemActivity(lvItems.getItemAtPosition(position));
-//            }
-//        });
+        // Highlight selected item
         lvItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -138,7 +101,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void turnGrey(Menu menu) {
+    //TODO: We can do better
+    private void invalidateIcons(Menu menu) {
         MenuItem detailMenuItem = menu.findItem(R.id.detail);
         Drawable detailIcon = getResources().getDrawable(R.drawable.ic_detail);
 
@@ -163,42 +127,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        turnGrey(menu);
+        invalidateIcons(menu);
 
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//        if(id == R.id.action_settings) {
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-        String msg = "";
-
         switch(item.getItemId()) {
             case R.id.discard:
-                msg = "Delete";
                 break;
             case R.id.note_add:
-                msg = "Add";
                 break;
-//            case R.id.edit:
-//                msg = "Edit";
-//                break;
-//            case R.id.settings:
-//                msg = "Settings";
-//                break;
-//            case R.id.Exit:
-//                msg = "Exit";
-//                break;
-
         }
         return super.onOptionsItemSelected(item);
     }
@@ -216,12 +159,7 @@ public class MainActivity extends AppCompatActivity {
         databaseHelper.deleteTodoItem(todoItem);
     }
 
-    public void gotoEditItemActivity(Object listItem) {
-        Intent showOtherActivityIntent = new Intent(this, EditItemActivity.class);
-        showOtherActivityIntent.putExtra(CommonConstants.fieldName, (Serializable) listItem);
-        startActivity(showOtherActivityIntent);
-    }
-
+    //TODO: Refactor gotoX methods
     public void gotoDetailItemActivity(Object listItem) {
         Intent showOtherActivityIntent = new Intent(this, ViewDetailActivity.class);
         showOtherActivityIntent.putExtra(CommonConstants.fieldName, (Serializable) listItem);

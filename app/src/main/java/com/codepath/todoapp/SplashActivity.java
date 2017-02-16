@@ -7,8 +7,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-import java.io.Serializable;
-
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -19,7 +17,6 @@ public class SplashActivity extends AppCompatActivity {
         final ImageView iv = (ImageView) findViewById(R.id.imageView2);
         final Animation an = AnimationUtils.loadAnimation(getBaseContext(), R.anim.rotate);
         final Animation an2 = AnimationUtils.loadAnimation(getBaseContext(), R.anim.abc_fade_out);
-
 
         iv.startAnimation(an);
         an.setAnimationListener(new Animation.AnimationListener() {
@@ -34,8 +31,6 @@ public class SplashActivity extends AppCompatActivity {
                 iv.startAnimation(an2);
                 finish();
                 gotoMainActivity();
-
-
             }
 
             @Override

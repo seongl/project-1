@@ -5,8 +5,9 @@ package com.codepath.todoapp;
  */
 
 public interface CommonConstants {
-    final static String fieldName = "selectedItem";
-    final static String HIGH = "High";
-    final static String MED = "Med";
-    final static String LOW = "Low";
+    String fieldName = "selectedItem";
+    String HIGH = "High";
+    String MED = "Med";
+    String LOW = "Low";
+    String DEFAULT_PRIORITY = LOW;
 }

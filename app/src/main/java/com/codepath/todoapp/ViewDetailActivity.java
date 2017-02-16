@@ -19,13 +19,13 @@ import java.text.SimpleDateFormat;
 
 public class ViewDetailActivity extends AppCompatActivity {
 
-    Toolbar toolbar;
-
     TextView nameDetailTextView;
     TextView dueDateDetailTextView;
     TextView notesDetailTextView;
     TextView priorityDetailTextView;
     TextView statusDetailTextView;
+
+    Toolbar toolbar;
 
     TodoItem originalTodoItem;
 
@@ -43,23 +43,16 @@ public class ViewDetailActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getSupportActionBar().setTitle("Welcome !");
-        toolbar.setSubtitle("Folks!");
-
         toolbar.inflateMenu(R.menu.menu_main);
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                String msg = "";
-
                 switch(item.getItemId()) {
                     case R.id.edit:
-                        msg = "Edit";
                         onAddNewItem();
                         break;
                     case R.id.view_list:
-                        msg = "Clear";
                         gotoMainActivity(null);
                         break;
                 }
@@ -75,24 +68,11 @@ public class ViewDetailActivity extends AppCompatActivity {
         priorityDetailTextView = (TextView) findViewById(R.id.priorityDetailTextView);
         statusDetailTextView = (TextView) findViewById(R.id.statusDetailTextView);
 
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         nameDetailTextView.setText(originalTodoItem.text);
-        dueDateDetailTextView.setText(df.format(originalTodoItem.date));
+        dueDateDetailTextView.setText(new SimpleDateFormat("MM/dd/yyyy").format(originalTodoItem.date));
         notesDetailTextView.setText(originalTodoItem.notes);
         priorityDetailTextView.setText(originalTodoItem.priority);
         statusDetailTextView.setText(originalTodoItem.status);
-
-//        nameDetailTextView.setBackgroundColor(Color.RED);
-//        dueDateDetailTextView.setBackgroundColor(Color.CYAN);
-//        notesDetailTextView.setBackgroundColor(Color.YELLOW);
-//        priorityDetailTextView.setBackgroundColor(Color.BLUE);
-//        statusDetailTextView.setBackgroundColor(Color.GREEN);
-
-    }
-    public void onChange(View view) {
-        Intent showOtherActivityIntent = new Intent(this, AddActivity.class);
-        showOtherActivityIntent.putExtra(CommonConstants.fieldName, originalTodoItem);
-        startActivity(showOtherActivityIntent);
     }
 
     public void onAddNewItem() {

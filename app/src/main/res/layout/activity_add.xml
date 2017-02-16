@@ -110,15 +110,4 @@
 
         </TableLayout>
     </LinearLayout>
-
-    <!--<Button-->
-        <!--android:text="@string/add"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="36dp"-->
-        <!--android:id="@+id/btnSaveNewItem"-->
-        <!--android:onClick="onSaveNewItem"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_alignParentEnd="true" />-->
 </RelativeLayout>

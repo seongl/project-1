@@ -4,8 +4,8 @@
     tools:context="com.codepath.todoapp.AddActivity">
 
     <item
-        android:id="@+id/check_circle"
-        android:icon="@drawable/ic_check_circle"
+        android:id="@+id/save"
+        android:icon="@drawable/ic_save"
         android:orderInCategory="100"
         android:title="Save"
         app:showAsAction="always" />

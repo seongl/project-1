@@ -7,10 +7,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.codepath.todoapp.MainActivity">
-    <!--android:paddingLeft="@dimen/activity_horizontal_margin"-->
-    <!--android:paddingRight="@dimen/activity_horizontal_margin"-->
-    <!--android:paddingTop="@dimen/activity_vertical_margin"-->
-    <!--android:paddingBottom="@dimen/activity_vertical_margin"-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,17 +15,6 @@
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
-
-        <!--<include layout="@layout/toolbar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent" />-->
-
-        <!--<android.support.v7.widget.Toolbar-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="@color/colorPrimary"-->
-            <!--android:minHeight="?attr/actionBarSize"-->
-            <!--android:elevation="5dp" />-->
 
         <ListView
             android:choiceMode="singleChoice"
@@ -41,17 +26,5 @@
             android:layout_alignParentLeft="true"
             android:layout_above="@+id/btnAddItem"
             android:id="@+id/lvItems" />
-
-
     </LinearLayout>
-    <!--<Button-->
-        <!--android:text="@string/add"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="36dp"-->
-        <!--android:id="@+id/btnAddItem"-->
-        <!--android:onClick="onAddNewItem"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_alignParentEnd="true" />-->
 </RelativeLayout>

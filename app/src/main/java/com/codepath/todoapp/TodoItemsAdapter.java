@@ -40,6 +40,7 @@ public class TodoItemsAdapter extends ArrayAdapter<TodoItem> {
         textView.setText(todoItems.get(position).text);
         priorityTextView.setText(todoItems.get(position).priority);
 
+        // Color the priorities
         if(CommonConstants.HIGH.equalsIgnoreCase(todoItems.get(position).priority)) {
             priorityTextView.setTextColor(Color.RED);
         } else if(CommonConstants.MED.equalsIgnoreCase(todoItems.get(position).priority)) {
