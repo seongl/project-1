@@ -1,5 +1,6 @@
 # Pre-work - *ToDoApp*
 
+test
 **ToDoApp** is an android app that allows building a todo list and basic todo items management functionality including adding new items, editing and deleting an existing item.
 
 Submitted by: **Seong Lee**
@@ -44,13 +45,13 @@ The following **additional** features are implemented:
 * [ ] Add photo in description. Instead of writing long description of what to do, take a picture that will remind you what to do.
 * [ ] Integrate with Google voice to create a todo item
 * [ ] Add location into description and app calls google map for map and captures driving instruction
-* [ ] Automatically kick off google hangout, if it is a meeting schedueld 
+* [ ] Automatically kick off google hangout, if it is a meeting schedueld
 * [ ] Automatically open up youtube app, if todo item is watching a video at later time
 * [ ] Add recurrence field for todo item e.g. weekly, monthly repeated todos
 * [ ] Add recommendation service e.g. If you completed 20 sit-ups last time, suggest 30 sit-ups and suggest recommendation video for setup
 
 
-## Video Walkthrough 
+## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
